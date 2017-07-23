@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="ref-count.h" />
+    <ClInclude Include="console-print.h" />
+    <ClInclude Include="default-deleter.h" />
+    <ClInclude Include="ptr.h" />
+    <ClInclude Include="event-impl.h" />
+    <ClInclude Include="make-event.h" />
+    <ClInclude Include="scheduler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="scheduler.cpp" />
+  </ItemGroup>
+</Project>

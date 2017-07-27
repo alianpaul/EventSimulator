@@ -1,5 +1,6 @@
 #include "scheduler.h"
 
+/*
 namespace eventsim
 {
 
@@ -37,3 +38,4 @@ Scheduler::IsEmpty() const
 
 
 }
+*/

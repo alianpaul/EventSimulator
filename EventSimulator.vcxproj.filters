@@ -8,6 +8,7 @@
     <ClInclude Include="event-impl.h" />
     <ClInclude Include="make-event.h" />
     <ClInclude Include="scheduler.h" />
+    <ClInclude Include="allocator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

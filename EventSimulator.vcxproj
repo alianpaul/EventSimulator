@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="allocator.h" />
     <ClInclude Include="console-print.h" />
     <ClInclude Include="default-deleter.h" />
     <ClInclude Include="event-impl.h" />

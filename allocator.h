@@ -1,8 +1,7 @@
 #ifndef ALLOCATOR_H
 #define ALLOCATOR_H
 
-#include <allocators>
-#include <Windows.h>
+#include <mutex>
 
 namespace eventsim
 {
@@ -131,22 +130,26 @@ class SyncShared
 public:
 	static void* Allocate(size_t n)
 	{
-		return cache.Allocate()n;
+		std::lock_guard<std::mutex> scopedLock;
+		return cache.Allocate(n);
 	}
 
 	static void  Deallocate(void*p, size_t n)
 	{
+		std::lock_guard<std::mutex> scopedLock;
 		cache.Deallocate(p, n);
 	}
 
 private:
-	static Cache cache;
+	static std::mutex  mtx;
+	static Cache       cache;
 };
 
 template<typename Cache>
 Cache SyncShared<Cache>::cache;
 
-
+template<typename Cache>
+std::mutex SyncShared<Cache>::mtx;
 
 };
 

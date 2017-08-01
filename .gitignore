@@ -1,2 +1,6 @@
 Debug
 EventSimulator.sdf
+*.sdf
+*.sln
+*.vcxproj
+*.filters

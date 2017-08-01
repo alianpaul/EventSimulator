@@ -31,7 +31,7 @@ private:
 void* EventImpl::operator new(size_t n)
 {
 	OUT_MSG("EventImpl::operator new size:" << n);
-	return ::operator new(n);
+	return SyncNone<FreeListCache>::Allocate(n);
 }
 
 
@@ -40,7 +40,7 @@ void EventImpl::operator delete(void* p, size_t n)
 
 	
 	OUT_MSG("EventImpl::operator del size:" << n);
-	::operator delete(p);
+	SyncNone<FreeListCache>::Deallocate(p, n);
 }
 
 

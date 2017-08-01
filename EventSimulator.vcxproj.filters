@@ -9,9 +9,18 @@
     <ClInclude Include="make-event.h" />
     <ClInclude Include="scheduler.h" />
     <ClInclude Include="allocator.h" />
+    <ClInclude Include="type-id.h" />
+    <ClInclude Include="singleton.h" />
+    <ClInclude Include="object-base.h" />
+    <ClInclude Include="attribute.h" />
+    <ClInclude Include="integer-value.h" />
+    <ClInclude Include="attribute-accessor-helper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scheduler.cpp" />
+    <ClCompile Include="type-id.cpp" />
+    <ClCompile Include="attribute.cpp" />
+    <ClCompile Include="integer-value.cpp" />
   </ItemGroup>
 </Project>

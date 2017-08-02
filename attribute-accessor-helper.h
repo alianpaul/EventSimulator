@@ -51,8 +51,8 @@ public:
 	}
 
 private:
-	virtual bool DoSet(OBJ* object, const	ATTV* value) const = 0;
-	virtual bool DoGet(const	OBJ* object, ATTV* value) const = 0;
+	virtual bool DoSet(			OBJ* object, const	ATTV* value) const = 0;
+	virtual bool DoGet(const	OBJ* object,		ATTV* value) const = 0;
 };
 
 
@@ -123,7 +123,7 @@ MakeAccessor( RET	(OBJ::*getter)(void) const,
 		}
 
 	private:
-		RET(OBJ::*m_getter)(void) const;
+		RET  (OBJ::*m_getter)(void) const;
 		void (OBJ::*m_setter)(ARG);
 	};
 

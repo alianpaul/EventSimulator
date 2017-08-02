@@ -53,7 +53,7 @@ private:
 	int64_t m_max;
 };
 
-/* T: explicit, The type of the attribute,
+/* T: explicit, The type of the attribute, int16_t, int32_t, int64_t
 */
 template<typename T>
 Ptr<AttributeChecker>

@@ -79,6 +79,7 @@
     <ClInclude Include="allocator.h" />
     <ClInclude Include="attribute-accessor-helper.h" />
     <ClInclude Include="attribute.h" />
+    <ClInclude Include="callback.h" />
     <ClInclude Include="console-print.h" />
     <ClInclude Include="default-deleter.h" />
     <ClInclude Include="event-impl.h" />

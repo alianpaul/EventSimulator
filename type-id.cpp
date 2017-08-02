@@ -22,15 +22,16 @@ private:
 	/*Type information*/
 	struct TypeInfo
 	{
-		uint16_t parent;
+		std::string									name;
+		uint16_t									parent;
+		size_t										size;
+		std::vector<TypeID::AttributeInformation>	attributes;
 	};
 
 	typedef std::vector<struct TypeInfo>	  TypeInfo_t;
 	typedef std::map<std::string, uint16_t>   NameMap_t;
 
-	/*Runtime container of the type information
-	 *We initialize the first one 
-	 */
+	/*Runtime container of the type information*/
 	TypeInfo_t m_typeInfos;
 	/*By name index*/
 	NameMap_t  m_nameMap; 
@@ -49,7 +50,6 @@ uint16_t TypeInfoManager::AllocateType(const char* classname)
 
 	TypeInfo ntype;
 	ntype.parent = -1;
-
 }
 
 

@@ -15,6 +15,7 @@
     <ClInclude Include="attribute.h" />
     <ClInclude Include="integer-value.h" />
     <ClInclude Include="attribute-accessor-helper.h" />
+    <ClInclude Include="callback.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

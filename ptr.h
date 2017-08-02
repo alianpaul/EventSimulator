@@ -105,6 +105,28 @@ bool operator >= (const Ptr<T1>& lhs, T2* rhs);
 template<typename T1, typename T2>
 bool operator >= (T1* lhs, const Ptr<T2>& rhs);
 
+/***Factory methods to easy the creation of the referenced object and Ptr***/
+/*
+* T: explicit, the type of the object to create
+*/
+template<typename T>
+Ptr<T> Create();
+
+/*
+* T: explicit, the type of the object to create
+* T0: deduced arg type, used in the construction of the object
+*/
+template<typename T, typename T0>
+Ptr<T> Create(T0 a0);
+
+template<typename T, typename T0, typename T1>
+Ptr<T> Create(T0 a0, T1 a1);
+
+template<typename T, typename T0, typename T1, typename T2>
+Ptr<T> Create(T0 a0, T1 a1, T2 a2);
+
+template<typename T, typename T0, typename T1, typename T2, typename T3>
+Ptr<T> Create(T0 a0, T1 a1, T2 a2, T3 a3);
 
 /*************IMPLEMENTATION OF Ptr TEMPLATE MEMBER FUNCTION*********/
 
@@ -294,6 +316,36 @@ template<typename T1, typename T2>
 bool operator >= (T1* lhs, const Ptr<T2>& rhs)
 {
 	return lhs >= PeekPointer(rhs);
+}
+
+template<typename T>
+Ptr<T> Create()
+{
+	return new T();
+}
+
+template<typename T, typename T0>
+Ptr<T> Create(T0 a0)
+{
+	return new T(a0);
+}
+
+template<typename T, typename T0, typename T1>
+Ptr<T> Create(T0 a0, T1 a1)
+{
+	return new T(a0, a1);
+}
+
+template<typename T, typename T0, typename T1, typename T2>
+Ptr<T> Create(T0 a0, T1 a1, T2 a2)
+{
+	return new T(a0, a1, a2);
+}
+
+template<typename T, typename T0, typename T1, typename T2, typename T3>
+Ptr<T> Create(T0 a0, T1 a1, T2 a2, T3 a3)
+{
+	return new T(a0, a1, a2, a3);
 }
 
 }

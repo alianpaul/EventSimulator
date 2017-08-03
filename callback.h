@@ -1,3 +1,5 @@
+#ifndef CALLBACK_H
+#define CALLBACK_H
 
 #include "ref-count.h"
 #include "ptr.h"
@@ -74,7 +76,7 @@ public:
 * We provide implementation of the choosen interface. Different number of Empty type template arguments
 * leads us to different base template to inherit. In this way, we choose a correct operator() interface to implement.
 * Other operator()s are not virtual because the Base class we choose,so they can not be called through a CallbackImpl
-* Ptr.
+* Ptr. In this way we control the correct template member function to initialize.
 * P.S. Compiler only implement the template member function that be called. So don't bother with the mathing problem 
 * in other functions
 */
@@ -210,6 +212,23 @@ public:
 		m_impl(Create<MemFuncCallbackImpl<OBJ_PTR, MEM_FUNC, R, T0, T1, T2, T3, T4>>(pobj, pmem))
 	{}
 
+	Callback()
+	{}
+
+	Callback& operator=(const Callback& o)
+	{
+		m_impl = o.m_impl;
+		return *this;
+	}
+
+	/*Test if contain any implementation.
+	*/
+	bool IsNull()
+	{
+		return !m_impl;
+	}
+
+
 	R operator()() const
 	{
 		return (*m_impl)();
@@ -246,3 +265,5 @@ private:
 
 
 }
+
+#endif

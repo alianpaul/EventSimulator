@@ -91,13 +91,16 @@
     <ClInclude Include="scheduler.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="type-id.h" />
+    <ClInclude Include="type-test-obj.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="attribute.cpp" />
     <ClCompile Include="integer-value.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="object-base.cpp" />
     <ClCompile Include="scheduler.cpp" />
     <ClCompile Include="type-id.cpp" />
+    <ClCompile Include="type-test-obj.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,18 +1,30 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include "type-id.h"
+
+#define OBJECT_ENSURE_REGISTERED(type)                  \
+  static struct Object ## type ## RegistrationClass     \
+  {                                                     \
+    Object ## type ## RegistrationClass () {            \
+      TypeID tid = type::GetTypeID ();	    \
+      tid.AddSize (sizeof (type));                      \
+    }                                                   \
+  } Object ## type ## RegistrationVariable
+
 namespace eventsim
 {
+
 
 class ObjectBase
 {
 
 public:
-	ObjectBase(){}
-	virtual ~ObjectBase(){}
+	/*Register the current class type info into the type system
+	*/
+	static TypeID GetTypeID();
 
-private:
-
+	virtual ~ObjectBase();
 };
 
 }

@@ -15,7 +15,7 @@ public:
 	}
 
 protected:
-	Singleton();
+	Singleton(){};
 	
 private:
 	Singleton(const Singleton&);

@@ -13,24 +13,18 @@
 
 using namespace eventsim;
 
-class MyStruct : public RefCount<MyStruct>
+struct Mystruct
 {
-public:
-	void SetI(int v) { m_i = v; }
-	int  GetI() const { return m_i; }
-	float Cal(int i, float& j, int k) const 
+	static TypeID GetTypeID()
 	{
-		j = 0.1;
-		return m_i + i + j + k;
+		static TypeID tid = TypeID("Mystruct");
+		return tid;
 	}
-	int m_i;
 };
-
 
 int main()
 {
 	//Ptr<AttributeValue>    pv(new IntegerValue(2));
 	//Ptr<AttributeChecker>  pc = MakeIntegerChecker<int32_t>();
 	//Ptr<AttributeAccessor> pa = MakeIntegerAccessor(&MyStruct::GetI, &MyStruct::SetI);
-
 }

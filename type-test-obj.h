@@ -1,14 +1,13 @@
 #ifndef TYPE_TEST_OBJ_H
 #define TYPE_TEST_OBJ_H
 
-#include "object-base.h"
-
+#include "object.h"
 
 namespace eventsim
 {
-struct Fuck : public ObjectBase
+struct Base0 : public Object
 {
-	Fuck(){};
+	Base0(){};
 	static TypeID GetTypeID();
 
 	int  GetJ() const;

@@ -1,5 +1,5 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef OBJECT_BASE_H
+#define OBJECT_BASE_H
 
 #include "type-id.h"
 
@@ -7,7 +7,7 @@
   static struct Object ## type ## RegistrationClass     \
   {                                                     \
     Object ## type ## RegistrationClass () {            \
-      TypeID tid = type::GetTypeID ();	    \
+      TypeID tid = type::GetTypeID ();					\
       tid.AddSize (sizeof (type));                      \
     }                                                   \
   } Object ## type ## RegistrationVariable
@@ -26,6 +26,7 @@ public:
 
 	virtual ~ObjectBase();
 };
+
 
 }
 

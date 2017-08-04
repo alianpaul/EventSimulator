@@ -223,7 +223,7 @@ public:
 
 	/*Test if contain any implementation.
 	*/
-	bool IsNull()
+	bool IsNull() const
 	{
 		return !m_impl;
 	}

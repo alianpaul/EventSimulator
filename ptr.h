@@ -35,7 +35,6 @@ public:
 	*/
 	template<typename U>
 	Ptr(const Ptr<U>& rhs);
-
 	/*Copy assign. Ptr object just like a pointer, no need to use copy-swap.
 	* Attention: there is no need to use Move-ctor and Move-assign, because they are same with the copy conter-part.
 	* we still need to call Acquire to make the move-version work correct, 

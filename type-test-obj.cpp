@@ -5,32 +5,33 @@
 namespace eventsim
 {
 
-OBJECT_ENSURE_REGISTERED(Fuck);
+OBJECT_ENSURE_REGISTERED(Base0);
 
-TypeID Fuck::GetTypeID()
+TypeID Base0::GetTypeID()
 {
-	static TypeID id = TypeID("Fuck")
-		.AddParent<ObjectBase>()
-		.AddConstructor<Fuck>()
+	static TypeID id = 
+		TypeID("Base0")
+		.AddParent<Object>()
+		.AddConstructor<Base0>()
 		.AddAttribute("i",
-		"i of fuck",
-		Create<IntegerValue>(10),
-		MakeIntegerAccessor(&Fuck::m_i),
-		MakeIntegerChecker<int>())
+					"i of fuck",
+					Create<IntegerValue>(10),
+					MakeIntegerAccessor(&Base0::m_i),
+					MakeIntegerChecker<int>())
 		.AddAttribute("j",
-		"j of fuck",
-		Create<IntegerValue>(20),
-		MakeIntegerAccessor(&Fuck::GetJ, &Fuck::SetJ),
-		MakeIntegerChecker<int>());
+					"j of fuck",
+					Create<IntegerValue>(20),
+					MakeIntegerAccessor(&Base0::GetJ, &Base0::SetJ),
+					MakeIntegerChecker<int>());
 	return id;
 }
 
-int Fuck::GetJ() const
+int Base0::GetJ() const
 {
 	return m_j;
 }
 
-void Fuck::SetJ(int j)
+void Base0::SetJ(int j)
 {
 	m_j = j;
 }

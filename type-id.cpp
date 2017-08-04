@@ -13,7 +13,7 @@ namespace eventsim
 struct TypeInfo
 {
 	std::string									name;
-	uint16_t									parent;
+	uint32_t									parent;
 	size_t										size;
 	Callback<ObjectBase*>                       constructor;
 	std::vector<TypeID::AttributeInformation>	attributes;
@@ -25,15 +25,16 @@ class TypeInfoManager : public Singleton<TypeInfoManager>
 {
 
 public:
-	
 	/*Add new type entry in the type container
 	* return: id of the type. Attention: the real idx of the type in the type container is (id - 1)
 	*/
 	uint32_t	AllocateType(std::string name);
 
-	TypeInfo&   GetTypeInfo (uint32_t tid);
+	TypeInfo&   GetTypeInfo (uint32_t tid) const;
 
-	bool		HasAttribute(uint32_t tid, std::string attrname);
+	bool		HasAttribute(uint32_t tid, std::string attrname) const;
+
+	uint32_t	GetTid(std::string name) const;
 
 private:
 
@@ -41,9 +42,9 @@ private:
 	typedef std::map<std::string, uint16_t>   NameMap_t;
 
 	/*Runtime container of the type information*/
-	TypeVec_t m_typeInfos;
+	mutable TypeVec_t m_typeInfos;
 	/*By name index*/
-	NameMap_t  m_nameMap; 
+	mutable NameMap_t  m_nameMap; 
 };
 
 
@@ -61,7 +62,7 @@ TypeInfoManager::AllocateType(std::string name)
 
 	TypeInfo newtype;
 	newtype.name = name;
-	newtype.parent = 0; //means no parent    
+	newtype.parent = 0; //means no parent, parent is a invalid type    
 	newtype.size = 0;
 
 	m_typeInfos.push_back(newtype);
@@ -73,13 +74,13 @@ TypeInfoManager::AllocateType(std::string name)
 }
 
 TypeInfo& 
-TypeInfoManager::GetTypeInfo(uint32_t tid)
+TypeInfoManager::GetTypeInfo(uint32_t tid) const
 {
 	return m_typeInfos[tid - 1];
 }
 
 bool 
-TypeInfoManager::HasAttribute(uint32_t tid, std::string attrname)
+TypeInfoManager::HasAttribute(uint32_t tid, std::string attrname) const
 {
 	TypeInfo& type = GetTypeInfo(tid);
 	for (size_t i = 0; i < type.attributes.size(); ++i)
@@ -90,12 +91,47 @@ TypeInfoManager::HasAttribute(uint32_t tid, std::string attrname)
 	return false;
 }
 
+uint32_t
+TypeInfoManager::GetTid(std::string name) const
+{
+	NameMap_t::const_iterator it = m_nameMap.find(name);
+	uint32_t tid;
+	if (it != m_nameMap.cend())
+	{
+		tid = it->second;
+	}
+	else
+	{
+		tid = 0; //invalid tid
+	}
+	return tid;
+}
+
 /*******************TypeID member functions implementations******************/
+/*Public static method, Called by client to get the TypeID
+*/
+TypeID TypeID::LookupByName(std::string name)
+{
+	uint32_t tid = TypeInfoManager::GetInstance()->GetTid(name);
+	return TypeID(tid);
+}
+
 TypeID::TypeID(const char* classname)
 {
 	m_tid = TypeInfoManager::GetInstance()->AllocateType(classname);
 }
 
+bool
+TypeID::isValid() const
+{
+	return m_tid != 0;
+}
+
+bool
+TypeID::operator!=(const TypeID& o) const
+{
+	return m_tid != o.m_tid;
+}
 
 void 
 TypeID::DoAddConstructor(Callback<ObjectBase*> ctor)
@@ -113,6 +149,7 @@ TypeID::DoAddParent(uint32_t pid)
 	return;
 }
 
+/*Attribute functions*/
 TypeID& 
 TypeID::AddAttribute(std::string name, std::string help,
 					Ptr<const AttributeValue> value,
@@ -132,6 +169,58 @@ TypeID::AddAttribute(std::string name, std::string help,
 	TypeInfo& type = TypeInfoManager::GetInstance()->GetTypeInfo(m_tid);
 	type.attributes.push_back(attrinfo);
 	return *this;
+}
+
+size_t
+TypeID::GetAttributeN() const
+{
+	const TypeInfo& type = TypeInfoManager::GetInstance()->GetTypeInfo(m_tid);
+	return type.attributes.size();
+}
+
+TypeID::AttributeInformation
+TypeID::GetAttribute(size_t ith) const
+{
+	const TypeInfo& type = TypeInfoManager::GetInstance()->GetTypeInfo(m_tid);
+	return type.attributes[ith];
+}
+
+/*Constructor functions*/
+Callback<ObjectBase*>
+TypeID::GetConstructor() const
+{
+	const TypeInfo& type = TypeInfoManager::GetInstance()->GetTypeInfo(m_tid);
+	return type.constructor;
+}
+
+bool
+TypeID::HasConstructor() const
+{
+	const TypeInfo& type = TypeInfoManager::GetInstance()->GetTypeInfo(m_tid);
+	return !type.constructor.IsNull();
+}
+
+/*Parent functions*/
+TypeID
+TypeID::GetParent() const
+{
+	const TypeInfo& type = TypeInfoManager::GetInstance()->GetTypeInfo(m_tid);
+	return TypeID(type.parent);
+}
+
+bool
+TypeID::HasParent() const
+{
+	const TypeInfo& type = TypeInfoManager::GetInstance()->GetTypeInfo(m_tid);
+	return type.parent != 0;
+}
+
+/*Size functions*/
+size_t
+TypeID::GetSize() const
+{
+	const TypeInfo& type = TypeInfoManager::GetInstance()->GetTypeInfo(m_tid);
+	return type.size;
 }
 
 TypeID&

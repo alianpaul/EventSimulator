@@ -21,7 +21,8 @@ namespace eventsim
 class TypeID
 {
 public:
-	explicit TypeID(const char* classname);
+
+	static TypeID LookupByName(std::string name);
 
 	struct AttributeInformation
 	{
@@ -33,22 +34,47 @@ public:
 		Ptr<const AttributeChecker>		checker;
 	};
 
-	TypeID&	AddAttribute	(std::string name,
-							std::string help,
-							Ptr<const AttributeValue> value,
-							Ptr<const AttributeAccessor> accessor,
-							Ptr<const AttributeChecker>  checker);
+	//Register the type into the type system
+	explicit	TypeID(const char* classname); 
+	//Be careful, This function only used by TypeInfoManager because only he know the correct tid of a type.
+	explicit	TypeID(uint32_t tid = 0) : m_tid(tid) {}
 
+	bool		isValid() const;
+
+	bool		operator!=(const TypeID& o) const;
+
+	/*Attribute functions*/
+	TypeID&				 AddAttribute(	std::string name,
+										std::string help,
+										Ptr<const AttributeValue> value,
+										Ptr<const AttributeAccessor> accessor,
+										Ptr<const AttributeChecker>  checker);
+	//AttributeInformation GetAttribute(	std::string name) const;
+
+	AttributeInformation GetAttribute(	size_t		ith	) const;
+
+	size_t				 GetAttributeN()				  const;
+	/*Constructor functions*/
 	template<typename T>
-	TypeID& AddConstructor	();
-
+	TypeID&					AddConstructor	();
 	
+	Callback<ObjectBase*>	GetConstructor	() const;
 
+	bool					HasConstructor	() const;
+
+	/*Parent functions*/
 	template<typename PARENT>
-	TypeID& AddParent		();
+	TypeID& AddParent();
 
-	TypeID& AddSize			(size_t size);
+	TypeID  GetParent() const;
 
+	bool	HasParent() const;
+
+	/*Size functions*/
+	TypeID& AddSize(size_t size);
+
+	size_t  GetSize() const;
+	
 
 private:
 	/*Helper function to prevent client code from the TypeInfoManager object*/

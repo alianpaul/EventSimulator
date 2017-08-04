@@ -17,6 +17,8 @@
     <ClInclude Include="attribute-accessor-helper.h" />
     <ClInclude Include="callback.h" />
     <ClInclude Include="type-test-obj.h" />
+    <ClInclude Include="object.h" />
+    <ClInclude Include="object-factory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -26,5 +28,7 @@
     <ClCompile Include="integer-value.cpp" />
     <ClCompile Include="object-base.cpp" />
     <ClCompile Include="type-test-obj.cpp" />
+    <ClCompile Include="object.cpp" />
+    <ClCompile Include="object-factory.cpp" />
   </ItemGroup>
 </Project>

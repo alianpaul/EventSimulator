@@ -86,6 +86,8 @@
     <ClInclude Include="integer-value.h" />
     <ClInclude Include="make-event.h" />
     <ClInclude Include="object-base.h" />
+    <ClInclude Include="object-factory.h" />
+    <ClInclude Include="object.h" />
     <ClInclude Include="ptr.h" />
     <ClInclude Include="ref-count.h" />
     <ClInclude Include="scheduler.h" />
@@ -98,6 +100,8 @@
     <ClCompile Include="integer-value.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object-base.cpp" />
+    <ClCompile Include="object-factory.cpp" />
+    <ClCompile Include="object.cpp" />
     <ClCompile Include="scheduler.cpp" />
     <ClCompile Include="type-id.cpp" />
     <ClCompile Include="type-test-obj.cpp" />

@@ -9,8 +9,7 @@ OBJECT_ENSURE_REGISTERED(ObjectBase);
 
 TypeID ObjectBase::GetTypeID()
 {
-	static TypeID id = TypeID("ObjectBase")
-		.AddConstructor<ObjectBase>();
+	static TypeID id = TypeID("ObjectBase"); //Can not construct ObjectBase object,
 	return id;
 }
 
